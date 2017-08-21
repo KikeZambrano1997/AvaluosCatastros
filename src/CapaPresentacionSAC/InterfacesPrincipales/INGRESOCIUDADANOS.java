@@ -32,7 +32,7 @@ public class INGRESOCIUDADANOS extends javax.swing.JFrame {
      */
     public INGRESOCIUDADANOS() {
         initComponents();
-        //setIconImage(new ImageIcon(getClass().getResource("../imagenes/avaluo.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("avaluo.png")).getImage());
         setResizable(false);
         setLocationRelativeTo(this);
         setTitle("Ingreso de Ciudadanos");

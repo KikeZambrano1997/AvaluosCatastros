@@ -7,7 +7,9 @@ package capapresentacionsac;
 
 import CapaPresentacionSAC.InterfacesPrincipales.Configuracion;
 import CapaPresentacionSAC.InterfacesPrincipales.Contribuyentes;
+import CapaPresentacionSAC.InterfacesPrincipales.Login;
 import CapaPresentacionSAC.InterfacesSecundarias.Cantones;
+import CapaPresentacionSAC.InterfacesSecundarias.ModificarUsuario;
 import CapaPresentacionSAC.InterfacesSecundarias.Provincias;
 import capapresentacionsac.interfacesprincipales.EmisionParcial;
 import capapresentacionsac.interfacesprincipales.FORMULARIOEXONERACION;
@@ -36,6 +38,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -52,6 +55,7 @@ public class AvaluosCatastros extends javax.swing.JFrame implements Runnable{
     public AvaluosCatastros() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("../imagenes/avaluo.png")).getImage());
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setExtendedState(MAXIMIZED_BOTH);
         txtFecha.setText(fecha());
         hilo = new Thread(this);
@@ -84,6 +88,9 @@ public class AvaluosCatastros extends javax.swing.JFrame implements Runnable{
         SimpleDateFormat formatofecha=new SimpleDateFormat("dd/MM/YYYY");
         return formatofecha.format(fecha);
     }
+    private AvaluosCatastros getFrame(){
+        return this;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -96,6 +103,13 @@ public class AvaluosCatastros extends javax.swing.JFrame implements Runnable{
 
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        lblUser = new javax.swing.JLabel();
+        linkButton1 = new org.openswing.swing.client.LinkButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtFecha = new javax.swing.JLabel();
@@ -170,20 +184,95 @@ public class AvaluosCatastros extends javax.swing.JFrame implements Runnable{
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/portada.jpg"))); // NOI18N
 
+        jPanel3.setBorder(new javax.swing.border.MatteBorder(null));
+
+        jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel4.setText("BIENVENIDO");
+
+        lblUser.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        lblUser.setText("Usuario");
+
+        linkButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        linkButton1.setLabel("CERRAR SESIÓN");
+        linkButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                linkButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/jipijapa.png"))); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jLabel6.setText("GAD MUNICIPAL");
+
+        jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("JIPIJAPA");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(lblUser)
+                                .addGap(98, 98, 98))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(linkButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(77, 77, 77))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE))
+                        .addContainerGap())))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblUser)
+                .addGap(18, 18, 18)
+                .addComponent(linkButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel7)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1039, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(59, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -203,7 +292,7 @@ public class AvaluosCatastros extends javax.swing.JFrame implements Runnable{
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(1064, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFecha)
@@ -690,7 +779,8 @@ public class AvaluosCatastros extends javax.swing.JFrame implements Runnable{
 
     private void jMenuItem22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem22ActionPerformed
         // TODO add your handling code here:
-        
+        ACCEBILIDADDERIESGO obj = new ACCEBILIDADDERIESGO();
+        obj.setVisible(true);
     }//GEN-LAST:event_jMenuItem22ActionPerformed
 
     private void jMenuItem23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem23ActionPerformed
@@ -734,6 +824,17 @@ public class AvaluosCatastros extends javax.swing.JFrame implements Runnable{
         Configuracion obj = new Configuracion();
         obj.setVisible(true);
     }//GEN-LAST:event_configActionPerformed
+
+    private void linkButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_linkButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        int confirmar=JOptionPane.showConfirmDialog(null, "¿Está seguro que desea cerra su sesión?"); 
+            if(JOptionPane.OK_OPTION==confirmar) {
+                this.setVisible(false);
+                Login ingreso = new Login();
+                ingreso.setVisible(true);
+            } 
+    }//GEN-LAST:event_linkButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -788,6 +889,10 @@ public class AvaluosCatastros extends javax.swing.JFrame implements Runnable{
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -826,6 +931,9 @@ public class AvaluosCatastros extends javax.swing.JFrame implements Runnable{
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    public static javax.swing.JLabel lblUser;
+    private org.openswing.swing.client.LinkButton linkButton1;
     private javax.swing.JMenuItem mod_fic_cats;
     private javax.swing.JMenuItem parroquias;
     private javax.swing.JMenu provincias;

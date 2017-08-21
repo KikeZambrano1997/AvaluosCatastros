@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -31,11 +32,12 @@ public class FORMAPREDIO extends javax.swing.JFrame {
         TablaFormaPredio = new DefaultTableModel(null, getColumnasFormaPredio());
         setFilasFormaPredio();
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("avaluo.png")).getImage());
         setResizable(false);
         setLocationRelativeTo(this);
         setTitle("Forma de Predio");
         numeros(id);
-        letras(forma_predio);
+        //letras(forma_predio);
         Decimales(indicador);
     }
     

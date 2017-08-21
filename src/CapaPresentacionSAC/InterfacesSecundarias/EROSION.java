@@ -32,12 +32,12 @@ public class EROSION extends javax.swing.JFrame {
         TablaErosion = new DefaultTableModel(null, getColumnasErosion());
         setFilasErosion();
         initComponents();
-        //setIconImage(new ImageIcon(getClass().getResource("../imagenes/avaluo.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("avaluo.png")).getImage());
         setResizable(false);
         setLocationRelativeTo(this);
         setTitle("Erosión");
         numeros(id);
-        letras(erosion);
+        //letras(erosion);
         Decimales(indicador);
     }
     

@@ -214,6 +214,48 @@ public class LlenaCombo {
         }
         return lista;
     }
+    
+    public static ArrayList<String> CB_Zona(){
+        ArrayList<String> lista = new ArrayList<String>();
+        String q = "SELECT * FROM Zona order by id";
+        try {
+            resultado = sentencia.executeQuery(q);
+            while(resultado.next()){
+                lista.add(resultado.getString("nombre"));
+            }
+        } catch (Exception e) {
+            
+        }
+        return lista;
+    }
+    
+    public static ArrayList<String> CB_Sector(){
+        ArrayList<String> lista = new ArrayList<String>();
+        String q = "SELECT * FROM Sector order by id";
+        try {
+            resultado = sentencia.executeQuery(q);
+            while(resultado.next()){
+                lista.add(resultado.getString("nombre"));
+            }
+        } catch (Exception e) {
+            
+        }
+        return lista;
+    }
+    public static ArrayList<String> CB_Poligono(){
+        ArrayList<String> lista = new ArrayList<String>();
+        String q = "SELECT * FROM Manzana order by id";
+        try {
+            resultado = sentencia.executeQuery(q);
+            while(resultado.next()){
+                lista.add(resultado.getString("nombre"));
+            }
+        } catch (Exception e) {
+            
+        }
+        return lista;
+    }
+    
 
     
 }

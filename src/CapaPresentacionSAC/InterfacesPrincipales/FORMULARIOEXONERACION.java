@@ -21,7 +21,7 @@ public class FORMULARIOEXONERACION extends javax.swing.JFrame {
      */
     public FORMULARIOEXONERACION() {
         initComponents();
-        //setIconImage(new ImageIcon(getClass().getResource("../imagenes/avaluo.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("avaluo.png")).getImage());
         setResizable(false);
         setLocationRelativeTo(this);
         setTitle("Formulario de Exoneración");

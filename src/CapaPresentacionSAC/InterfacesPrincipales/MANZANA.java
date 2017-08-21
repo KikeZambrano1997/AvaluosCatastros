@@ -6,30 +6,42 @@
 package capapresentacionsac.interfacesprincipales;
 
 import CapaNegociosSAC.LlenaCombo;
+import capapresentacionsac.interfacessecundarias.SECTOR;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Usuario
  */
 public class MANZANA extends javax.swing.JFrame {
-
+    DefaultTableModel TablaPoligono;
+    capadatossac.ConexionTablas con = new capadatossac.ConexionTablas();
     /**
      * Creates new form MANZANA
      */
     public MANZANA() {
+        TablaPoligono = new DefaultTableModel(null, getColumnasPoligono());
+        setFilasPoligono();
         initComponents();
-        //setIconImage(new ImageIcon(getClass().getResource("../imagenes/avaluo.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("avaluo.png")).getImage());
         setResizable(false);
         setLocationRelativeTo(this);
-        setTitle("Manzana");
+        setTitle("Polígono");
         letras(nombre);
         LlenaCombo.conectar();
         CBParroquia();
+        CBZona();
+        CBSector();
     }
     
     private void CBParroquia(){
@@ -39,6 +51,48 @@ public class MANZANA extends javax.swing.JFrame {
         for(int i = 0; i<lista.size();i++){
             parroquia.addItem(lista.get(i));
         }
+    }
+    private void CBZona(){
+        zona.removeAllItems();
+        ArrayList<String> lista = new ArrayList<String>();
+        lista = LlenaCombo.CB_Zona();
+        for(int i = 0; i<lista.size();i++){
+            zona.addItem(lista.get(i));
+        }
+    }
+    private void CBSector(){
+        sector.removeAllItems();
+        ArrayList<String> lista = new ArrayList<String>();
+        lista = LlenaCombo.CB_Sector();
+        for(int i = 0; i<lista.size();i++){
+            sector.addItem(lista.get(i));
+        }
+    }
+    
+    private String [] getColumnasPoligono(){
+        String columna1[] = new String[]{"SECTOR", "CÓDIGO", "NOMBRE"};
+        return columna1;
+    }
+    private void setFilasPoligono(){
+        try{
+
+            String sql = "SELECT idSector, codigo, nombre FROM Manzana"; 
+
+                PreparedStatement us = con.conexion().prepareStatement(sql);
+                ResultSet res = us.executeQuery();
+
+                Object datos[] = new Object[3];
+            while(res.next()){
+                for(int i=0; i<3; i++){
+                    datos[i] = res.getObject(i+1);
+                }
+                TablaPoligono.addRow(datos);
+            }
+
+        }
+        catch (SQLException e){
+            Logger.getLogger(SECTOR.class.getName()).log(Level.SEVERE, null, e);
+        }          
     }
 
     /**
@@ -76,9 +130,9 @@ public class MANZANA extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         parroquia = new javax.swing.JComboBox<String>();
         jLabel5 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<String>();
+        zona = new javax.swing.JComboBox<String>();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<String>();
+        sector = new javax.swing.JComboBox<String>();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
@@ -88,33 +142,7 @@ public class MANZANA extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(231, 235, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "MANZANAS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "CÓDIGO", "NOMBRE"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        jTable1.setModel(TablaPoligono);
         jScrollPane1.setViewportView(jTable1);
 
         jPanel2.setBackground(new java.awt.Color(231, 235, 255));
@@ -157,7 +185,7 @@ public class MANZANA extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(zona, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -173,7 +201,7 @@ public class MANZANA extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(sector, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -186,11 +214,11 @@ public class MANZANA extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(zona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(sector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -326,8 +354,6 @@ public class MANZANA extends javax.swing.JFrame {
     private javax.swing.JTextField codigo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -339,5 +365,7 @@ public class MANZANA extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField nombre;
     private javax.swing.JComboBox<String> parroquia;
+    private javax.swing.JComboBox<String> sector;
+    private javax.swing.JComboBox<String> zona;
     // End of variables declaration//GEN-END:variables
 }

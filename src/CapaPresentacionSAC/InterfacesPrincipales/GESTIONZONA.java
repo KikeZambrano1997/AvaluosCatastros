@@ -5,27 +5,63 @@
  */
 package capapresentacionsac.interfacesprincipales;
 
+import capapresentacionsac.interfacessecundarias.ACCESOYVIAS;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Usuario
  */
 public class GESTIONZONA extends javax.swing.JFrame {
+    DefaultTableModel TablaZona;
+    capadatossac.ConexionTablas con = new capadatossac.ConexionTablas();
 
     /**
      * Creates new form GESTIONZONA
      */
     public GESTIONZONA() {
+        TablaZona = new DefaultTableModel(null, getColumnasZona());
+        setFilasZona();
         initComponents();
-        //setIconImage(new ImageIcon(getClass().getResource("../imagenes/avaluo.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("avaluo.png")).getImage());
         setResizable(false);
         setLocationRelativeTo(this);
         setTitle("Gestión de Zonas");
         letras(nombre);
+    }
+    private String [] getColumnasZona(){
+        String columna1[] = new String[]{"ID PARROQUIA", "CÓDIGO", "NOMBRE"};
+        return columna1;
+    }
+    private void setFilasZona(){
+        try{
+
+            String sql = "SELECT idParroquia, codigo, nombre FROM Zona"; 
+
+                PreparedStatement us = con.conexion().prepareStatement(sql);
+                ResultSet res = us.executeQuery();
+
+                Object datos[] = new Object[3];
+            while(res.next()){
+                for(int i=0; i<3; i++){
+                    datos[i] = res.getObject(i+1);
+                }
+                TablaZona.addRow(datos);
+            }
+
+        }
+        catch (SQLException e){
+            Logger.getLogger(GESTIONZONA.class.getName()).log(Level.SEVERE, null, e);
+        }          
     }
 
     /**
@@ -69,40 +105,7 @@ public class GESTIONZONA extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(231, 235, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "GESTIÓN DE ZONAS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Times New Roman", 1, 18))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "PARROQUIA", "CÓDIGO", "NOMBRE"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                true, false, true
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        jTable1.setModel(TablaZona);
         jScrollPane1.setViewportView(jTable1);
 
         jPanel2.setBackground(new java.awt.Color(231, 235, 255));

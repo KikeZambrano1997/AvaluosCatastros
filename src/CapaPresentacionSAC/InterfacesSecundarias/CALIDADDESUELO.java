@@ -32,11 +32,11 @@ public class CALIDADDESUELO extends javax.swing.JFrame {
         TablaCalidadSuelo = new DefaultTableModel(null, getColumnasCalidadSuelo());
         setFilasCalidadSuelo();
         initComponents();
-        //setIconImage(new ImageIcon(getClass().getResource("../imagenes/avaluo.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("avaluo.png")).getImage());
         setResizable(false);
         setLocationRelativeTo(this);
         setTitle("Calidad de Suelo");
-        letras(tipoRi);
+        //letras(tipoRi);
     }
     
     private String [] getColumnasCalidadSuelo(){

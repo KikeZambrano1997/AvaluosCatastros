@@ -21,7 +21,7 @@ public class EmisionParcial extends javax.swing.JFrame {
      */
     public EmisionParcial() {
         initComponents();
-        //setIconImage(new ImageIcon(getClass().getResource("../imagenes/avaluo.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("avaluo.png")).getImage());
         setResizable(false);
         setLocationRelativeTo(this);
         setTitle("Emision Parcial");

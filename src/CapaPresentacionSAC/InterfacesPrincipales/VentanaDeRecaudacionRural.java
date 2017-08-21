@@ -18,7 +18,7 @@ public class VentanaDeRecaudacionRural extends javax.swing.JFrame {
      */
     public VentanaDeRecaudacionRural() {
         initComponents();
-        //setIconImage(new ImageIcon(getClass().getResource("../imagenes/avaluo.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("avaluo.png")).getImage());
         setLocationRelativeTo(this);
         setResizable(false);
         setTitle("Ventana de Recaudación Rural");

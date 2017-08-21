@@ -18,7 +18,7 @@ public class frmRptEMISIONES extends javax.swing.JFrame {
      */
     public frmRptEMISIONES() {
         initComponents();
-        //setIconImage(new ImageIcon(getClass().getResource("../imagenes/avaluo.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("avaluo.png")).getImage());
         setLocationRelativeTo(this);
         setResizable(false);
         setTitle("Frm Ropt Emisiones");

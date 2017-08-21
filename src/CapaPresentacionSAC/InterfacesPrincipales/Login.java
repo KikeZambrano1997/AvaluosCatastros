@@ -4,8 +4,17 @@
  * and open the template in the editor.
  */
 package CapaPresentacionSAC.InterfacesPrincipales;
+import capadatossac.ConexionPostgresql;
 import capapresentacionsac.AvaluosCatastros;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.ImageIcon;
 /**
@@ -13,22 +22,55 @@ import javax.swing.ImageIcon;
  * @author Pamela
  */
 public class Login extends javax.swing.JFrame {
-
+    capadatossac.ConexionTablas con = new capadatossac.ConexionTablas();
+    Connection cn = con.conexion();
     /**
      * Creates new form Login
      */
     private Component confirmation;
     private String usuario,password;
     public Login() {
-        //setIconImage(new ImageIcon(getClass().getResource("../imagenes/avaluo.png")).getImage());
         initComponents();
-        
+        setIconImage(new ImageIcon(getClass().getResource("avaluo.png")).getImage());
+        setResizable(false);
         setLocationRelativeTo(this);
     }
-    public void datos(String us, String pas){
-        usuario = "Admin"; 
-        password = "admin";
-    }
+
+    void acceder(String usuario, String pass)
+    {
+        
+        String cap="";
+       String sql="SELECT * FROM Usuario WHERE usuario='"+usuario+"' and clave='"+pass+"'";
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next())
+            {
+                cap=rs.getString("tipo");
+            }
+            if(cap.equals("ADMINISTRADOR"))
+            {
+                  this.setVisible(false);
+                    AvaluosCatastros ingreso = new AvaluosCatastros();
+                    ingreso.setVisible(true);
+                    AvaluosCatastros.lblUser.setText(usuario);  
+            }
+            if(cap.equals("DIGITADOR"))
+            {
+                this.setVisible(false);
+                AvaluosCatastros ingreso = new AvaluosCatastros();
+                ingreso.setVisible(true);
+                AvaluosCatastros.lblUser.setText(usuario);
+            }
+            if((!cap.equals("ADMINISTRADOR"))&& (!cap.equals("DIGITADOR")))
+            {
+                JOptionPane.showMessageDialog(this, "Usuario y/o contraseña Incorrecto(s)\nVuelva a intentarlo.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,13 +96,18 @@ public class Login extends javax.swing.JFrame {
 
         txtUsuario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtUsuario.setBorder(null);
-        jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 300, 50));
+        jPanel1.add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 280, 50));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/user_txt.png"))); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
 
         txtPass.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         txtPass.setBorder(null);
+        txtPass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPassKeyTyped(evt);
+            }
+        });
         jPanel1.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 260, 300, 50));
 
         btnIniciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/inicio_rol.png"))); // NOI18N
@@ -85,7 +132,7 @@ public class Login extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/frame.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 440));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 440));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,7 +150,14 @@ public class Login extends javax.swing.JFrame {
 
     private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
         // TODO add your handling code here:
-        datos(usuario, password);
+        
+        String usu=txtUsuario.getText();
+        String pas=new String(txtPass.getPassword());
+        acceder(usu, pas);
+        
+        
+        
+    /*    datos(usuario, password);
     if(usuario.equals(txtUsuario.getText()) && password.equals(txtPass.getText())){
          AvaluosCatastros obj = new AvaluosCatastros();
          obj.setVisible(true);
@@ -128,7 +182,7 @@ public class Login extends javax.swing.JFrame {
     }else if(txtPass.getText().compareTo(password)!=0){
         JOptionPane.showMessageDialog(this,"Contraseña no válida\nIngrese nuevamente.");
         txtPass.setFocusable(true);
-    }
+    }*/
     }//GEN-LAST:event_btnIniciarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -143,6 +197,10 @@ public class Login extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtPassKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPassKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPassKeyTyped
 
     /**
      * @param args the command line arguments

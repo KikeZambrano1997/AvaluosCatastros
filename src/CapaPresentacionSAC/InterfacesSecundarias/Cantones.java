@@ -6,6 +6,8 @@
 package CapaPresentacionSAC.InterfacesSecundarias;
 
 import capadatossac.ConexionPostgresql;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,7 +33,10 @@ public class Cantones extends javax.swing.JFrame {
         TablaCantones = new DefaultTableModel(null, getColumnasCantones());
         setFilasCantones();
         initComponents();
-        //setIconImage(new ImageIcon(getClass().getResource("../imagenes/avaluo.png")).getImage());
+        numeros(id);
+        numeros(cod);
+        letras(nombre);
+        setIconImage(new ImageIcon(getClass().getResource("avaluo.png")).getImage());
         setResizable(false);
         setLocationRelativeTo(this);
         setTitle("Cantones");
@@ -69,6 +75,30 @@ public class Cantones extends javax.swing.JFrame {
        }
    }
 
+    public void numeros (JTextField a){
+        a.addKeyListener(new KeyAdapter(){
+            public void keyTyped(KeyEvent e){
+                char c = e.getKeyChar();
+                if (!Character.isDigit(c)){
+                    //getToolkit().beep();
+                    e.consume();
+                }
+            }
+        });
+    }
+    
+    public void letras (JTextField a){
+        a.addKeyListener(new KeyAdapter(){
+            public void keyTyped(KeyEvent e){
+                char c = e.getKeyChar();
+                if (Character.isDigit(c)){
+                    //getToolkit().beep();
+                    e.consume();
+                }
+            }
+        });
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

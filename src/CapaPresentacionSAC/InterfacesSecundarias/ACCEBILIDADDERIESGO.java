@@ -32,12 +32,12 @@ public class ACCEBILIDADDERIESGO extends javax.swing.JFrame {
         TablaAccesibilidadRiesgo = new DefaultTableModel(null, getColumnasAccesibilidad());
         setFilasAccesibilidad();
         initComponents();
-        //setIconImage(new ImageIcon(getClass().getResource("../imagenes/avaluo.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("avaluo.png")).getImage());
         setResizable(false);
         setLocationRelativeTo(this);
         setTitle("Accesibilidad de Riego");
         numeros(id);
-        letras(frecuencia);
+        //letras(frecuencia);
         Decimales(indicador);
     }
     private String [] getColumnasAccesibilidad(){

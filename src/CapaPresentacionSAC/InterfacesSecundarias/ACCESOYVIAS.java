@@ -32,12 +32,12 @@ public class ACCESOYVIAS extends javax.swing.JFrame {
         TablaAccesoVias = new DefaultTableModel(null, getColumnasAccesoVias());
         setFilasAccesoVias();
         initComponents();
-        //setIconImage(new ImageIcon(getClass().getResource("../imagenes/avaluo.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("avaluo.png")).getImage());
         setResizable(false);
         setLocationRelativeTo(this);
         setTitle("Acceso y Vías");
         numeros(id);
-        letras(acceso_vias);
+        //letras(acceso_vias);
         Decimales(indicador);
     }
     

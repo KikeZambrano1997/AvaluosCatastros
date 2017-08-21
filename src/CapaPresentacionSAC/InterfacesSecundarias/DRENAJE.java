@@ -32,12 +32,12 @@ public class DRENAJE extends javax.swing.JFrame {
         TablaDrenaje = new DefaultTableModel(null, getColumnasDrenaje());
         setFilasDrenaje();
         initComponents();
-        //setIconImage(new ImageIcon(getClass().getResource("../imagenes/avaluo.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("avaluo.png")).getImage());
         setResizable(false);
         setLocationRelativeTo(this);
         setTitle("Drenaje");
         numeros(id);
-        letras(drenaje);
+        //letras(drenaje);
         Decimales(indicador);
     }
     
